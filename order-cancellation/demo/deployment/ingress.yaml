@@ -1,18 +1,21 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: gitops-ingress-rules
-  namespace: gitops
+  name: order-ingress-rules
+  namespace: order
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  tls:
+    - hosts:  
+      - order.demo.dapr.team
+      secretName: tls-secret
   rules:
-    - host: gitops.thingz.io
+    - host: order.demo.dapr.team
       http:
         paths:
           - path: /
             backend:
-              serviceName: gitops
+              serviceName: order-viewer
               servicePort: 80

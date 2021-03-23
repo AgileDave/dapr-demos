@@ -44,6 +44,10 @@ metadata:
 spec:
   tracing:
     samplingRate: "1"
+  secrets:
+    scopes:
+      - storeName: kubernetes
+        defaultAccess: deny
   accessControl:
     defaultAction: deny
     trustDomain: "hardened"
@@ -51,7 +55,7 @@ spec:
     - appId: nginx-ingress
       defaultAction: deny 
       trustDomain: "public"
-      namespace: "default"
+      namespace: "nginx" # where NGINX is installed 
       operations:
       - name: /ping
         httpVerb: ["POST"] 
